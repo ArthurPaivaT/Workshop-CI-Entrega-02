@@ -38,12 +38,14 @@ test-backend:
   image: docker:dind
   stage: test
   script:
+    - apk add docker-compose
     - docker-compose run --entrypoint "npm run unittest" backend
 
 test-frontend:
   image: docker:dind
   stage: test
   script:
+    - apk add docker-compose
     - docker-compose run --entrypoint "npm run test" frontend
 
 deploy-backend:
