@@ -52,7 +52,7 @@ deploy-backend:
   image: docker:dind
   stage: deploy
   script:
-    - docker build --pull -t "$CI_REGISTRY_IMAGE_BACKEND:latest" backend
+    - docker build --pull -t "$CI_REGISTRY_IMAGE_BACKEND:ci-latest" backend
     - docker push "$CI_REGISTRY_IMAGE_BACKEND:ci-latest"
   only:
     - main
@@ -61,7 +61,7 @@ deploy-frontend:
   image: docker:dind
   stage: deploy
   script:
-    - docker build --pull -t "$CI_REGISTRY_IMAGE_BACKEND:latest" frontend
+    - docker build --pull -t "$CI_REGISTRY_IMAGE_FRONTEND:ci-latest" frontend
     - docker push "$CI_REGISTRY_IMAGE_FRONTEND:ci-latest"
   only:
     - main
