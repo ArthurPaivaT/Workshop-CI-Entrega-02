@@ -14,26 +14,26 @@ before_script:
   - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
 
 build-backend:
-  image: node:lts
+  image: docker:latest
   stage: build
   script:
-    - docker build --pull -t "$CI_REGISTRY_IMAGE_BACKEND:$CI_COMMIT_REF_SLUG" ../backend
+    - docker build --pull -t "$CI_REGISTRY_IMAGE_BACKEND:$CI_COMMIT_REF_SLUG" backend
 
 build-frontend:
-  image: node:14
+  image: docker:latest
   stage: build
   script:
-    - docker build --pull -t "$CI_REGISTRY_IMAGE_FRONTEND:$CI_COMMIT_REF_SLUG" ../frontend
+    - docker build --pull -t "$CI_REGISTRY_IMAGE_FRONTEND:$CI_COMMIT_REF_SLUG" frontend
     - docker-compose build
 
 test-backend:
-  image: node:lts
+  image: docker:latest
   stage: test
   script:
     - docker-compose run --entrypoint "npm run unittest" backend
 
 test-frontend:
-  image: node:14
+  image: docker:latest
   stage: test
   script:
     - docker-compose run --entrypoint "npm run test" frontend
