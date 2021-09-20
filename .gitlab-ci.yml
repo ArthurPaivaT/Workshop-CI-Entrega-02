@@ -14,32 +14,37 @@ before_script:
   - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
 
 build-backend:
-  image: docker:latest
+  image: docker:stable
+  privileged: true
   stage: build
   script:
     - docker build --pull -t "$CI_REGISTRY_IMAGE_BACKEND:$CI_COMMIT_REF_SLUG" backend
 
 build-frontend:
-  image: docker:latest
+  image: docker:stable
+  privileged: true
   stage: build
   script:
     - docker build --pull -t "$CI_REGISTRY_IMAGE_FRONTEND:$CI_COMMIT_REF_SLUG" frontend
     - docker-compose build
 
 test-backend:
-  image: docker:latest
+  image: docker:stable
+  privileged: true
   stage: test
   script:
     - docker-compose run --entrypoint "npm run unittest" backend
 
 test-frontend:
-  image: docker:latest
+  image: docker:stable
+  privileged: true
   stage: test
   script:
     - docker-compose run --entrypoint "npm run test" frontend
 
 deploy-backend:
-  image: docker:latest
+  image: docker:stable
+  privileged: true
   stage: deploy
   script:
     - docker image tag "$CI_REGISTRY_IMAGE_BACKEND:$CI_COMMIT_REF_SLUG" "$CI_REGISTRY_IMAGE_BACKEND:ci-latest"
@@ -48,7 +53,8 @@ deploy-backend:
     - main
 
 deploy-frontend:
-  image: docker:latest
+  image: docker:stable
+  privileged: true
   stage: deploy
   script:
     - docker image tag "$CI_REGISTRY_IMAGE_FRONTEND:$CI_COMMIT_REF_SLUG" "$CI_REGISTRY_IMAGE_FRONTEND:ci-latest"
