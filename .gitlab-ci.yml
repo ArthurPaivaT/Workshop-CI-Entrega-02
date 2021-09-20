@@ -33,7 +33,6 @@ build-frontend:
   stage: build
   script:
     - docker build --pull -t "$CI_REGISTRY_IMAGE_FRONTEND:$CI_COMMIT_REF_SLUG" frontend
-    - docker-compose build
 
 test-backend:
   image: docker:dind
