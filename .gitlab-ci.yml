@@ -4,6 +4,10 @@ variables:
   CI_REGISTRY_IMAGE_BACKEND: docker.io/arthurpaiva/workshop-ci-backend
   CI_REGISTRY_IMAGE_FRONTEND: docker.io/arthurpaiva/workshop-ci-frontend
   #CI_REGISTRY_PASSWORD is set in gitlab project settings
+  DOCKER_HOST: tcp://docker:2375/
+  DOCKER_DRIVER: overlay2
+  # See https://github.com/docker-library/docker/pull/166
+  DOCKER_TLS_CERTDIR: ""
 
 stages:
   - build
