@@ -52,7 +52,7 @@ deploy-backend:
   image: docker:dind
   stage: deploy
   script:
-    - docker image tag "$CI_REGISTRY_IMAGE_BACKEND:$CI_COMMIT_REF_SLUG" "$CI_REGISTRY_IMAGE_BACKEND:ci-latest"
+    - docker build --pull -t "$CI_REGISTRY_IMAGE_BACKEND:latest" backend
     - docker push "$CI_REGISTRY_IMAGE_BACKEND:ci-latest"
   only:
     - main
@@ -61,7 +61,7 @@ deploy-frontend:
   image: docker:dind
   stage: deploy
   script:
-    - docker image tag "$CI_REGISTRY_IMAGE_FRONTEND:$CI_COMMIT_REF_SLUG" "$CI_REGISTRY_IMAGE_FRONTEND:ci-latest"
+    - docker build --pull -t "$CI_REGISTRY_IMAGE_BACKEND:latest" frontend
     - docker push "$CI_REGISTRY_IMAGE_FRONTEND:ci-latest"
   only:
     - main
